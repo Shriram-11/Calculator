@@ -23,7 +23,7 @@
         background-color: #000000;
       }
 
-      #disp {
+      #expression {
         background-color: grey;
         border: solid 1px #f4efef;
         width: 206px;
@@ -32,7 +32,7 @@
         font-size: 20px;
       }
 
-      #res {
+      #result {
         background-color: grey;
         border: solid 1px #f4efef;
         width: 206px;
@@ -44,10 +44,21 @@
   </head>
   <body style="background-color: black">
     <center>
-      <forms method="post" onsubmit="evaluateExpression()">
-        <input type="text" id="disp" value="" />
+      <forms method="POST" action="main.py">
+        <input
+          type="text"
+          id="expression"
+          name="expression"
+          value="{{ expression }}"
+        />
         <br />
-        <input type="text" id="res" value="" />
+        <input
+          type="text"
+          id="result"
+          name="result"
+          value="{{ result }}"
+          readonly
+        />
         <br />
         <input
           type="button"
@@ -175,19 +186,12 @@
 
     <script>
       function updateExpression(value) {
-        var current = document.getElementById("disp").value;
-        document.getElementById("disp").value = current + value;
+        var current = document.getElementById("expression").value;
+        document.getElementById("expression").value = current + value;
       }
       function clearExpression() {
-        var display = document.getElementById("disp");
+        var display = document.getElementById("expression");
         display.value = "";
-      }
-
-      function evaluateExpression() {
-        var c = document.getElementById("disp").value;
-        console.log(c);
-        alert(c);
-        document.getElementById("res").value = eval(c);
       }
     </script>
   </body>
