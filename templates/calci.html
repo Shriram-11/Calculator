@@ -10,9 +10,10 @@
         color: #fffdfd;
         text-align: center;
         background-color: #000000;
-        width: 50px;
-        height: 25px;
-        border: solid 1px #f4efef;
+        width: 100px;
+        height: 50px;
+        font-size: 20px;
+        border: solid 2px #f4efef;
       }
 
       #buttons:hover {
@@ -25,26 +26,26 @@
 
       #expression {
         background-color: grey;
-        border: solid 1px #f4efef;
-        width: 206px;
-        height: 25px;
+        border: solid 2px #f4efef;
+        width: 412px;
+        height: 50px;
         text-align: left;
-        font-size: 20px;
+        font-size: 30px;
       }
 
       #result {
         background-color: grey;
-        border: solid 1px #f4efef;
-        width: 206px;
-        height: 25px;
+        border: solid 2px #f4efef;
+        width: 412px;
+        height: 50px;
         text-align: left;
-        font-size: 20px;
+        font-size: 30px;
       }
     </style>
   </head>
   <body style="background-color: black">
     <center>
-      <forms method="POST" action="main.py">
+      <form method="POST">
         <input
           type="text"
           id="expression"
@@ -138,6 +139,13 @@
         <input
           type="button"
           id="buttons"
+          value="0"
+          onclick="updateExpression(this.value)"
+        />
+
+        <input
+          type="button"
+          id="buttons"
           value="sin"
           onclick="updateExpression(this.value)"
         />
@@ -147,12 +155,7 @@
           value="cos"
           onclick="updateExpression(this.value)"
         />
-        <input
-          type="button"
-          id="buttons"
-          value="tan"
-          onclick="updateExpression(this.value)"
-        />
+
         <input
           type="button"
           id="buttons"
@@ -161,6 +164,14 @@
         />
 
         <br />
+
+        <input
+          type="button"
+          id="buttons"
+          value="tan"
+          onclick="updateExpression(this.value)"
+        />
+
         <input
           type="button"
           id="buttons"
@@ -174,19 +185,66 @@
           value="C"
           onclick="clearExpression()"
         />
-        <input type="submit" id="buttons" value="=" />
+        <input type="submit" id="buttons" name="cal" value="=" />
+
+        <br />
         <input
           type="button"
           id="buttons"
           value="^"
           onclick="updateExpression(this.value)"
         />
-      </forms>
+        <input
+          type="button"
+          id="buttons"
+          value="("
+          onclick="updateExpression(this.value)"
+        />
+        <input
+          type="button"
+          id="buttons"
+          value=")"
+          onclick="updateExpression(this.value)"
+        />
+
+        <input type="button" id="buttons" value="del" onclick="del()" />
+        <br />
+        <input
+          type="button"
+          id="buttons"
+          value="sqrt"
+          onclick="updateExpression(this.value)"
+        />
+        <input
+          type="button"
+          id="buttons"
+          value="{{result}}"
+          onclick="updateExpression(this.value)"
+        />
+      </form>
     </center>
 
     <script>
+      function del() {
+        var string = document.getElementById("expression").value;
+        string = string.substring(0, string.length - 1);
+        document.getElementById("expression").value = string;
+      }
+
       function updateExpression(value) {
         var current = document.getElementById("expression").value;
+        if (value == "sin") {
+          value = "sin(";
+        } else if (value == "cos") {
+          value = "cos(";
+        } else if (value == "tan") {
+          value = "tan(";
+        } else if (value == "sqrt") {
+          value = "sqrt(";
+        } else if (value == "^") {
+          value = "**(";
+        }
+
         document.getElementById("expression").value = current + value;
       }
       function clearExpression() {

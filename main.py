@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from math import sin,tan,cos,sqrt
 app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])
